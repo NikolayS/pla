@@ -17,7 +17,7 @@ input_fileid = sys.argv[2]
 
 # 3-char code for bounced type
 def bouncedline2status(line):
-  matchObj = re.match(r' said:([0-9]){3}[ \-]', line)
+  matchObj = re.search(r' said:([0-9]){3}[ \-]', line)
   if matchObj:
     return matchObj.group(1)
   for pattern, abbrev in [ \
