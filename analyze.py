@@ -73,7 +73,7 @@ for line in log_file:
     hashes[hash] = {'type_id': parts[9], 'state': 'in_process', 'timestamp': timestamp}
   # if it is a known non-finalized hash
   if hash in hashes and hashes[hash]['state'] in ['in_process', 'status=deferred']:
-    line2status(line) = status
+    status = line2status(line)
     # update but do not finalize
     if status in ['status=deferred']:
       hashes[hash]['state'] = status
