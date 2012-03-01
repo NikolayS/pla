@@ -85,7 +85,6 @@ for line in log_file:
         key = hashes[hash]['type_id'] + ' ' + status
         results[key] = results.get(key, 0) + 1
         del hashes[hash]
-        break
 # clear hashes that have no chance to be finalized
 hashes_recent = dict(filter(lambda item: item[1]['timestamp'] > last_timestamp - timestamp_timeout, hashes.items()))
 
