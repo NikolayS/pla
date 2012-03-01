@@ -20,7 +20,7 @@ def bouncedline2status(line):
   matchObj = re.match(r' said:([0-9]){3}[ \-]', line)
   if matchObj:
     return matchObj.group(1)
-  for pattern, abbrev [ \
+  for pattern, abbrev in [ \
     [r'Name service error', 'DNS'], \
     [r'cannot append message to file', 'CAF'], \
     [r'loops back to myself', 'LBM'], \
