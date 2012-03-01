@@ -36,7 +36,7 @@ def line2status(line):
       return st
   for st in ['status=bounced']:
     if ' ' + st + ' ' in line:
-      return st + ' ' + bouncedline2status(line)
+      return st + '_' + bouncedline2status(line)
 
 ### main
 
@@ -73,18 +73,17 @@ for line in log_file:
     hashes[hash] = {'type_id': parts[9], 'state': 'in_process', 'timestamp': timestamp}
   # if it is a known non-finalized hash
   if hash in hashes and hashes[hash]['state'] in ['in_process', 'status=deferred']:
+    line2status(line) = status
     # update but do not finalize
-    for st in ['status=deferred']:
-      if ' ' + st + ' ' in line:
-        hashes[hash]['state'] = st
-    hashes[hash]['timestamp'] = timestamp
+    if status in ['status=deferred']:
+      hashes[hash]['state'] = status
+      hashes[hash]['timestamp'] = timestamp
     # finalize hash, save into results
-  for st in ['status=sent', 'status=bounced']:
-    if ' ' + st + ' ' in line:
-      key = hashes[hash]['type_id'] + ' ' + st
+    if status.split('_')[0] in ['status=sent', 'status=bounced']:
+      key = hashes[hash]['type_id'] + ' ' + status
       results[key] = results.get(key, 0) + 1
       del hashes[hash]
-    break
+      break
 # clear hashes that have no chance to be finalized
 hashes_recent = dict(filter(lambda item: item[1]['timestamp'] > last_timestamp - timestamp_timeout, hashes.items()))
 
